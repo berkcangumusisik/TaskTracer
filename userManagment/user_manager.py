@@ -8,9 +8,9 @@ class UserManager:
         if any(u.username == username for u in self.users):
             print("Kullanıcı zaten var.")
             return
-
-        self.users.append(User(username, password))
-        print("Kullanıcı başarıyla kaydedildi.")
+        else:
+            self.users.append(User(username, password))
+            print("Kullanıcı başarıyla kaydedildi.")
 
     def login(self,username,password):
         for user in self.users:
