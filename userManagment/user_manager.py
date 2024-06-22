@@ -6,9 +6,10 @@ class UserManager:
 
     def register(self, username, password):
         if any(u.username == username for u in self.users):
+            
             print("Kullanıcı zaten var.")
             return
-        
+
         self.users.append(User(username, password))
         print("Kullanıcı başarıyla kaydedildi.")
 
