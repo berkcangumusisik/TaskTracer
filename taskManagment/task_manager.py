@@ -49,3 +49,15 @@ class TaskManager:
             print("Görev başarıyla silindi.")
         else:
             print("Görev bulunamadı.")
+
+    def search_tasks(self, search_term):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
+
+        user_tasks = [t for t in self.tasks if t.assigned_to == user.username and (search_term.lower() in t.title.lower() or search_term.lower() in t.description.lower())]
+        for task in user_tasks:
+            print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}, Bitiş Tarihi: {task.due_date}, Öncelik: {task.priority}, Kategori: {task.category}, Etiketler: {', '.join(task.tags)}")
+
+        
