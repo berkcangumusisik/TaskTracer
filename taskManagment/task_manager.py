@@ -23,4 +23,15 @@ class TaskManager:
         user_task = [t for t in self.task if t.assigned_to == user.username]
         for task in user_task:
             print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}")
-            
+    def update_task(self, title, new_description):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
+
+        task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None) #next() nesnenin bir sonraki elemanını döndürür.
+        if task:
+            task.description = new_description
+            print("Görev başarıyla güncellendi.")
+        else:
+            print("Görev bulunamadı.")
