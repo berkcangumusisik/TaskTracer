@@ -6,7 +6,7 @@ class UserManager:
 
     def register(self, username, password):
         if any(u.username == username for u in self.users):
-            
+
             print("Kullanıcı zaten var.")
             return
 
@@ -20,3 +20,13 @@ class UserManager:
                 print("Kullanıcı başarıyla giriş yaptı.")
             else:
                 print("Geçersiz kullanıcı adı veya şifre.")
+
+    def logout(self):
+            self.logged_in_user = None
+            print("Kullanıcı başarıyla çıkış yaptı.")
+
+    def get_logged_in_user(self):
+        return self.logged_in_user
+
+    def get_users(self):
+        return self.users
