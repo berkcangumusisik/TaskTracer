@@ -49,3 +49,16 @@ class TaskManager:
             print("Görev başarıyla güncellendi.")
         else:
             print("Görev bulunamadı.")
+
+    def delete_task(self, title):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
+
+        task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
+        if task:
+            self.tasks.remove(task)
+            print("Görev başarıyla silindi.")
+        else:
+            print("Görev bulunamadı.")
