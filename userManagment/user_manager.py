@@ -8,6 +8,7 @@ class UserManager:
         if any(u.username == username for u in self.users):
             print("Kullanıcı zaten var.")
             return
+
         else:
             self.users.append(User(username, password))
             print("Kullanıcı başarıyla kaydedildi.")

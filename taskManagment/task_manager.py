@@ -1,15 +1,16 @@
-from datetime import datetime as dt
+from task import Task
 
+class TaskManager:
+    def __init__(self, user_manager):
+        self.tasks = []
+        self.user_manager = user_manager
 
-class Task:
-    def __init__(self, id, title, description, status="Pending", priority="Normal", due_date=None, user_id=None):
-        self.id = id
-        self.title = title
-        self.description = description
-        self.status = status
-        self.priority = priority
-        self.due_date = dt.now()
-        self.user_id = user_id
-        self.subtasks = []
-        self.comments = []
-        self.tags = []
+    def add_task(self, title, description):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
+
+        task = Task(title, description, user.username)
+        self.tasks.append(task)
+        print("Görev başarıyla eklendi.")
