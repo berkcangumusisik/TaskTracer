@@ -1,6 +1,12 @@
 from datetime import datetime as dt
 from enum import Enum
 
+class PriorityLevel(Enum):
+    LOW = "Düşük"
+    MEDIUM = "Orta"
+    HIGH = "Yüksek"
+
+
 class TaskCategory(Enum):
     WORK = "İş"
     PERSONAL = "Kişisel"
