@@ -60,4 +60,17 @@ class TaskManager:
         for task in user_tasks:
             print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}, Bitiş Tarihi: {task.due_date}, Öncelik: {task.priority}, Kategori: {task.category}, Etiketler: {', '.join(task.tags)}")
 
+    def sort_tasks(self, by_priority=False, by_due_date=False):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
 
+        user_tasks = [t for t in self.tasks if t.assigned_to == user.username]
+        if by_priority:
+            user_tasks = sorted(user_tasks, key=lambda x: x.priority)
+        elif by_due_date:
+            user_tasks = sorted(user_tasks, key=lambda x: x.due_date)
+
+        for task in user_tasks:
+            print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}, Bitiş Tarihi: {task.due_date}, Öncelik: {task.priority}, Kategori: {task.category}, Etiketler: {', '.join(task.tags)}")
