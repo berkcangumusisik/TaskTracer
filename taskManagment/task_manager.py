@@ -35,3 +35,17 @@ class TaskManager:
             print("Görev başarıyla güncellendi.")
         else:
             print("Görev bulunamadı.")
+
+    def update_task(self, title, new_description):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
+
+        task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
+        if task:
+            task.description = new_description
+            self.save_tasks_to_file()
+            print("Görev başarıyla güncellendi.")
+        else:
+            print("Görev bulunamadı.")
