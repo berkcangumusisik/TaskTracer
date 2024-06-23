@@ -32,7 +32,7 @@ class CLI:
             elif choice == "4":
                 self.add_task()
             elif choice == "5":
-                self.task_manager.view_tasks()
+                self.task_manager.view_task()
             elif choice == "6":
                 self.update_task()
             elif choice == "7":
