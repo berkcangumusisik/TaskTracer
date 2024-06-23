@@ -37,8 +37,13 @@ class TaskManager:
         user = self.user_manager.user_control()
         task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
         if task:
-            self.tasks.remove(task)
-            print("Görev başarıyla silindi.")
+            confirmation = input(f"Görevi silmek istediğinizden emin misiniz '{title}'? (evet/hayır): ")
+            if confirmation.lower() == "evet":
+                self.tasks.remove(task)
+                self.save_tasks_to_file()
+                print("Görev başarıyla silindi.")
+            else:
+                print("Görev silme işlemi iptal edildi.")
         else:
             print("Görev bulunamadı.")
 
