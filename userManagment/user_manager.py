@@ -1,4 +1,4 @@
-from user import User
+from userManagment.user import User
 class UserManager:
     def __init__(self):
         self.users = []

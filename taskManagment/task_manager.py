@@ -1,4 +1,4 @@
-from task import Task
+from taskManagment.task import Task
 
 class TaskManager:
     def __init__(self, user_manager):
@@ -74,3 +74,19 @@ class TaskManager:
 
         for task in user_tasks:
             print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}, Bitiş Tarihi: {task.due_date}, Öncelik: {task.priority}, Kategori: {task.category}, Etiketler: {', '.join(task.tags)}")
+
+
+    def share_task(self, title, share_with_username):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
+
+        task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
+        if task:
+            shared_task = Task(task.title, task.description, share_with_username, task.due_date, task.priority, task.category, task.tags)
+            self.tasks.append(shared_task)
+            self.save_tasks_to_file()
+            print("Görev başarıyla paylaşıldı.")
+        else:
+            print("Görev bulunamadı.")
