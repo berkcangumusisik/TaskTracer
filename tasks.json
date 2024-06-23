@@ -1,0 +1,42 @@
+[
+    {
+        "title": "Okul",
+        "description": "12345",
+        "assigned_to": "ahmet",
+        "is_completed": true,
+        "due_date": "2024-12-12 00:00:00",
+        "priority": "PriorityLevel.ORTA",
+        "category": "TaskCategory.OKUL",
+        "tags": [
+            "ales",
+            "dgs"
+        ],
+        "comments": [
+            "1234567"
+        ],
+        "subtasks": [],
+        "history": [
+            "A\u00e7\u0131klama g\u00fcncellendi: 12345",
+            "Yorum eklendi: 1234567",
+            "G\u00f6rev tamamland\u0131."
+        ],
+        "creation_date": "2024-06-23 12:38:34.438727"
+    },
+    {
+        "title": "Okul",
+        "description": "12345",
+        "assigned_to": "berkcan",
+        "is_completed": false,
+        "due_date": "2024-12-12 00:00:00",
+        "priority": "PriorityLevel.ORTA",
+        "category": "TaskCategory.OKUL",
+        "tags": [
+            "ales",
+            "dgs"
+        ],
+        "comments": [],
+        "subtasks": [],
+        "history": [],
+        "creation_date": "2024-06-23 12:39:34.797401"
+    }
+]

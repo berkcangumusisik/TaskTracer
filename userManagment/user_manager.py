@@ -1,6 +1,6 @@
 import json
 import os
-from user import User
+from userManagment.user import User
 
 class UserManager:
     def __init__(self):
@@ -57,5 +57,3 @@ class UserManager:
                     self.users = [User(**user) for user in users_data]
         except Exception as e:
             print(f"Hata: {e}")
-
-      

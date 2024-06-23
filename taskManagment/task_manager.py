@@ -1,6 +1,6 @@
 import json
 import os
-from task import Task, PriorityLevel, TaskCategory
+from taskManagment.task import Task, PriorityLevel, TaskCategory
 
 class TaskManager:
     def __init__(self, user_manager):
@@ -35,11 +35,12 @@ class TaskManager:
     def view_tasks(self):
         try:
             user_tasks = self.get_user_tasks()
+            if not user_tasks:
+                print("Görev bulunamadı.")
             for task in user_tasks:
                 print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}, Bitiş Tarihi: {task.due_date}, Öncelik: {task.priority}, Kategori: {task.category}, Etiketler: {', '.join(task.tags)}")
         except Exception as e:
             print(f"Hata: {e}")
-
 
     def update_task(self, title, new_description):
         try:
@@ -72,6 +73,8 @@ class TaskManager:
         try:
             user_tasks = self.get_user_tasks()
             found_tasks = [t for t in user_tasks if search_term.lower() in t.title.lower() or search_term.lower() in t.description.lower()]
+            if not found_tasks:
+                print("Görev bulunamadı.")
             for task in found_tasks:
                 print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}, Bitiş Tarihi: {task.due_date}, Öncelik: {task.priority}, Kategori: {task.category}, Etiketler: {', '.join(task.tags)}")
         except Exception as e:
@@ -87,6 +90,8 @@ class TaskManager:
             else:
                 sorted_tasks = user_tasks
 
+            if not sorted_tasks:
+                print("Görev bulunamadı.")
             for task in sorted_tasks:
                 print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}, Bitiş Tarihi: {task.due_date}, Öncelik: {task.priority}, Kategori: {task.category}, Etiketler: {', '.join(task.tags)}")
         except Exception as e:
@@ -134,7 +139,6 @@ class TaskManager:
         except Exception as e:
             print(f"Hata: {e}")
 
-
     def save_tasks_to_file(self):
         try:
             with open(self.file_path, "w") as file:
@@ -150,4 +154,3 @@ class TaskManager:
                     self.tasks = [Task(**task) for task in tasks_data]
         except Exception as e:
             print(f"Hata: {e}")
-
