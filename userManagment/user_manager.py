@@ -30,3 +30,9 @@ class UserManager:
 
     def get_users(self):
         return self.users
+
+    def user_control(self):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
