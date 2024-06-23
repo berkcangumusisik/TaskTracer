@@ -10,35 +10,52 @@ class UserManager:
         self.load_users_from_file()
 
     def register(self, username, password):
-        if any(u.username == username for u in self.users):
-            print("Kullanıcı zaten var.")
-            return
+        try:
+            if any(u.username == username for u in self.users):
+                raise Exception("Kullanıcı zaten var.")
 
-        self.users.append(User(username, password))
-        self.save_users_to_file()
-        print("Kullanıcı başarıyla kaydedildi.")
+            self.users.append(User(username, password))
+            self.save_users_to_file()
+            print("Kullanıcı başarıyla kaydedildi.")
+        except Exception as e:
+            print(f"Hata: {e}")
 
     def login(self, username, password):
-        user = next((u for u in self.users if u.username == username and u.password == password), None)
-        if user:
-            self.logged_in_user = user
-            print("Kullanıcı başarıyla giriş yaptı.")
-        else:
-            print("Geçersiz kullanıcı adı veya şifre.")
+        try:
+            user = next((u for u in self.users if u.username == username and u.password == password), None)
+            if user:
+                self.logged_in_user = user
+                print("Kullanıcı başarıyla giriş yaptı.")
+            else:
+                raise Exception("Geçersiz kullanıcı adı veya şifre.")
+        except Exception as e:
+            print(f"Hata: {e}")
 
     def logout(self):
-        self.logged_in_user = None
-        print("Kullanıcı başarıyla çıkış yaptı.")
+        try:
+            self.logged_in_user = None
+            print("Kullanıcı başarıyla çıkış yaptı.")
+        except Exception as e:
+            print(f"Hata: {e}")
+
 
     def get_logged_in_user(self):
         return self.logged_in_user
 
     def save_users_to_file(self):
-        with open(self.file_path, "w") as file:
-            json.dump([user.__dict__ for user in self.users], file, default=str, indent=4)
+        try:
+            with open(self.file_path, "w") as file:
+                json.dump([user.__dict__ for user in self.users], file, default=str, indent=4)
+        except Exception as e:
+            print(f"Hata: {e}")
 
     def load_users_from_file(self):
-        if os.path.exists(self.file_path):
-            with open(self.file_path, "r") as file:
-                users_data = json.load(file)
-                self.users = [User(**user) for user in users_data]
+        try:
+            if os.path.exists(self.file_path):
+                with open(self.file_path, "r") as file:
+                    users_data = json.load(file)
+                    self.users = [User(**user) for user in users_data]
+        except Exception as e:
+            print(f"Hata: {e}")
+
+      
