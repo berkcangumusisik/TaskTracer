@@ -1,15 +1,16 @@
+import datetime
 import json
 import os
-from taskManagment.task import Task
+from taskManagment.task import PriorityLevel, Task, TaskCategory
 
 class TaskManager:
     def __init__(self, user_manager):
         self.tasks = []
         self.user_manager = user_manager
 
-    def add_task(self, title, description):
+    def add_task(self, title, description, due_date=None, priority=PriorityLevel.MEDIUM, category=TaskCategory.OTHER, tags=None):
         user = self.user_manager.user_control()
-        task = Task(title, description, user.username)
+        task = Task(title, description, user.username, due_date, priority, category, tags)
         self.tasks.append(task)
         print("Görev başarıyla eklendi.")
 
@@ -111,3 +112,14 @@ class TaskManager:
             with open(self.file_path, "r") as file:
                 tasks_data = json.load(file)
                 self.tasks = [Task(**task) for task in tasks_data]
+
+    def notify_tasks(self):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
+
+        user_tasks = [t for t in self.tasks if t.assigned_to == user.username]
+        for task in user_tasks:
+            if task.due_date.date() == datetime.datetime.now().date() and not task.is_completed:
+                print(f"Bildirim: '{task.title}' görevinin bitiş tarihi bugün.")
