@@ -2,6 +2,7 @@ from userManagment.user import User
 class UserManager:
     def __init__(self):
         self.users = []
+        self.tasks = []
         self.logged_in_user = None
 
     def register(self, username, password):
@@ -32,7 +33,7 @@ class UserManager:
         return self.users
 
     def user_control(self):
-        user = self.user_manager.get_logged_in_user()
+        user = self.get_logged_in_user()
         if user is None:
             print("Hiçbir kullanıcı giriş yapmadı.")
             return

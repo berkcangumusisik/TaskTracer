@@ -15,9 +15,10 @@ class TaskManager:
 
     def view_task(self):
         user = self.user_manager.user_control()
-        user_task = [t for t in self.task if t.assigned_to == user.username]
+        user_task = [t for t in self.tasks if t.assigned_to == user.username]
         for task in user_task:
             print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}")
+
     def update_task(self, title, new_description):
         user = self.user_manager.user_control()
 
@@ -90,6 +91,8 @@ class TaskManager:
 
     def complete_task(self, title):
         user = self.user_manager.user_control()
+
+
         task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
         if task:
             task.is_completed = True
