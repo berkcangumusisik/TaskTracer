@@ -114,12 +114,20 @@ class TaskManager:
                 self.tasks = [Task(**task) for task in tasks_data]
 
     def notify_tasks(self):
-        user = self.user_manager.get_logged_in_user()
-        if user is None:
-            print("Hiçbir kullanıcı giriş yapmadı.")
-            return
-
+        user = self.user_manager.user_control()
         user_tasks = [t for t in self.tasks if t.assigned_to == user.username]
         for task in user_tasks:
             if task.due_date.date() == datetime.datetime.now().date() and not task.is_completed:
                 print(f"Bildirim: '{task.title}' görevinin bitiş tarihi bugün.")
+
+    def add_subtask(self, task_title, subtask_title):
+        user = self.user_manager.user_control()
+        task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == task_title), None)
+        if task:
+            subtask = Task(subtask_title, "", user.username, task.due_date, task.priority, task.category, task.tags)
+            task.subtasks.append(subtask)
+            task.history.append(f"Alt görev eklendi: {subtask_title}")
+            self.save_tasks_to_file()
+            print("Alt görev başarıyla eklendi.")
+        else:
+            print("Görev bulunamadı.")
