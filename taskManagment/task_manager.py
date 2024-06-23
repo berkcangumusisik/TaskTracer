@@ -40,6 +40,7 @@ class TaskManager:
         except Exception as e:
             print(f"Hata: {e}")
 
+
     def update_task(self, title, new_description):
         try:
             user_tasks = self.get_user_tasks()
@@ -133,6 +134,7 @@ class TaskManager:
         except Exception as e:
             print(f"Hata: {e}")
 
+
     def save_tasks_to_file(self):
         try:
             with open(self.file_path, "w") as file:
@@ -148,3 +150,4 @@ class TaskManager:
                     self.tasks = [Task(**task) for task in tasks_data]
         except Exception as e:
             print(f"Hata: {e}")
+

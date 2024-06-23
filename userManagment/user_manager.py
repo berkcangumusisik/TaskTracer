@@ -38,6 +38,7 @@ class UserManager:
         except Exception as e:
             print(f"Hata: {e}")
 
+
     def get_logged_in_user(self):
         return self.logged_in_user
 
@@ -56,3 +57,5 @@ class UserManager:
                     self.users = [User(**user) for user in users_data]
         except Exception as e:
             print(f"Hata: {e}")
+
+      
