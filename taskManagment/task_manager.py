@@ -26,6 +26,8 @@ class TaskManager:
         task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None) #next() nesnenin bir sonraki elemanını döndürür.
         if task:
             task.description = new_description
+            task.history.append(f"Açıklama güncellendi: {new_description}")
+            self.save_tasks_to_file()
             print("Görev başarıyla güncellendi.")
         else:
             print("Görev bulunamadı.")
