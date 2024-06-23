@@ -18,7 +18,8 @@ class TaskManager:
         user = self.user_manager.user_control()
         user_task = [t for t in self.tasks if t.assigned_to == user.username]
         for task in user_task:
-            print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}")
+                    print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}, Bitiş Tarihi: {task.due_date}, Öncelik: {task.priority}, Kategori: {task.category}, Etiketler: {', '.join(task.tags)}, Oluşturulma Tarihi: {task.creation_date}")
+
 
     def update_task(self, title, new_description):
         user = self.user_manager.user_control()
