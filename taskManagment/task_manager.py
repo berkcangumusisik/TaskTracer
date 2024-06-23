@@ -1,3 +1,5 @@
+import json
+import os
 from taskManagment.task import Task
 
 class TaskManager:
@@ -120,3 +122,13 @@ class TaskManager:
             print("Görev başarıyla tamamlandı.")
         else:
             print("Görev bulunamadı.")
+
+    def save_tasks_to_file(self):
+        with open(self.file_path, "w") as file:
+            json.dump([task.__dict__ for task in self.tasks], file, default=str, indent=4)
+
+    def load_tasks_from_file(self):
+        if os.path.exists(self.file_path):
+            with open(self.file_path, "r") as file:
+                tasks_data = json.load(file)
+                self.tasks = [Task(**task) for task in tasks_data]
