@@ -105,3 +105,18 @@ class TaskManager:
                 print("Yorum başarıyla eklendi.")
             else:
                 print("Görev bulunamadı.")
+
+    def complete_task(self, title):
+        user = self.user_manager.get_logged_in_user()
+        if user is None:
+            print("Hiçbir kullanıcı giriş yapmadı.")
+            return
+
+        task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
+        if task:
+            task.is_completed = True
+            task.history.append("Görev tamamlandı.")
+            self.save_tasks_to_file()
+            print("Görev başarıyla tamamlandı.")
+        else:
+            print("Görev bulunamadı.")
