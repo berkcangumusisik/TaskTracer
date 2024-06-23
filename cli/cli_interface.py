@@ -1,6 +1,6 @@
-from user_manager import UserManager
-from task_manager import TaskManager
-from task import PriorityLevel, TaskCategory
+from userManagment import UserManager
+from taskManagment.task_manager import TaskManager
+from taskManagment.task import PriorityLevel, TaskCategory
 import datetime
 
 class CLI:
