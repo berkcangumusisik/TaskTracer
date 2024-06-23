@@ -37,8 +37,13 @@ class TaskManager:
         user = self.user_manager.user_control()
         task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
         if task:
-            self.tasks.remove(task)
-            print("Görev başarıyla silindi.")
+            confirmation = input(f"Görevi silmek istediğinizden emin misiniz '{title}'? (evet/hayır): ")
+            if confirmation.lower() == "evet":
+                self.tasks.remove(task)
+                self.save_tasks_to_file()
+                print("Görev başarıyla silindi.")
+            else:
+                print("Görev silme işlemi iptal edildi.")
         else:
             print("Görev bulunamadı.")
 
@@ -137,3 +142,17 @@ class TaskManager:
         user = self.user_manager.user_control()
         user_tasks = [t for t in self.tasks if t.assigned_to == user.username]
         print(f"Toplam görev sayısı: {len(user_tasks)}")
+
+    def archive_task(self, title):
+        user = self.user_manager.user_control()
+        task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
+        if task:
+            task.is_completed = True
+            task.history.append("Görev arşivlendi.")
+            self.save_tasks_to_file()
+            print("Görev başarıyla arşivlendi.")
+        else:
+            print("Görev bulunamadı.")
+
+    
+
