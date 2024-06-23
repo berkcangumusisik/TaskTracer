@@ -138,3 +138,16 @@ class TaskManager:
             print("Alt görev başarıyla eklendi.")
         else:
             print("Görev bulunamadı.")
+
+    def archive_task(self, title):
+        user = self.user_manager.user_control()
+        task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
+        if task:
+            task.is_completed = True
+            task.history.append("Görev arşivlendi.")
+            self.save_tasks_to_file()
+            print("Görev başarıyla arşivlendi.")
+        else:
+            print("Görev bulunamadı.")
+
+    
