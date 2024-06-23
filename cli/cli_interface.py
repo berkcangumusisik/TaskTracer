@@ -1,6 +1,6 @@
-from userManagment.user_manager import UserManager
-from taskManagment.task_manager import TaskManager
-from taskManagment.task import PriorityLevel, TaskCategory
+from user_manager import UserManager
+from task_manager import TaskManager
+from task import PriorityLevel, TaskCategory
 import datetime
 
 class CLI:
@@ -20,7 +20,10 @@ class CLI:
             print("8. Görevleri Arama")
             print("9. Görevleri Sıralama")
             print("10. Görevleri Kategorilere Göre Ayır")
-            print("11. Çıkış")
+            print("11. Görev Paylaş")
+            print("12. Göreve Yorum Ekle")
+            print("13. Görevi Tamamla")
+            print("14. Çıkış")
             choice = input("Bir seçenek seçin: ")
 
             if choice == "1":
@@ -32,7 +35,7 @@ class CLI:
             elif choice == "4":
                 self.add_task()
             elif choice == "5":
-                self.task_manager.view_task()
+                self.view_tasks()
             elif choice == "6":
                 self.update_task()
             elif choice == "7":
@@ -44,6 +47,12 @@ class CLI:
             elif choice == "10":
                 self.categorize_tasks()
             elif choice == "11":
+                self.share_task()
+            elif choice == "12":
+                self.add_comment()
+            elif choice == "13":
+                self.complete_task()
+            elif choice == "14":
                 break
             else:
                 print("Geçersiz seçim. Lütfen tekrar deneyin.")
@@ -70,6 +79,9 @@ class CLI:
         tags = input("Etiketler girin (virgülle ayırın): ").split(',')
         self.task_manager.add_task(title, description, due_date, priority, category, tags)
 
+    def view_tasks(self):
+        self.task_manager.view_tasks()
+
     def update_task(self):
         title = input("Görev başlığı girin: ")
         new_description = input("Yeni açıklama girin: ")
@@ -94,3 +106,17 @@ class CLI:
 
     def categorize_tasks(self):
         self.task_manager.categorize_tasks()
+
+    def share_task(self):
+        title = input("Paylaşılacak görev başlığı girin: ")
+        share_with_username = input("Görev kiminle paylaşılacak? Kullanıcı adı girin: ")
+        self.task_manager.share_task(title, share_with_username)
+
+    def add_comment(self):
+        title = input("Yorum eklenecek görev başlığı girin: ")
+        comment = input("Yorum girin: ")
+        self.task_manager.add_comment(title, comment)
+
+    def complete_task(self):
+        title = input("Tamamlanacak görev başlığı girin: ")
+        self.task_manager.complete_task(title)
