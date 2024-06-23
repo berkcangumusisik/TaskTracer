@@ -1,6 +1,6 @@
-from user_manager import UserManager
-from task_manager import TaskManager
-from task import PriorityLevel, TaskCategory
+from userManagment.user_manager import UserManager
+from taskManagment.task_manager import TaskManager
+from taskManagment.task_manager import PriorityLevel, TaskCategory
 import datetime
 
 class CLI:
@@ -59,7 +59,7 @@ class CLI:
                     print("Geçersiz seçim. Lütfen tekrar deneyin.")
             except Exception as e:
                 print(f"Hata: {e}")
-            
+
 
     def register_user(self):
         try:
@@ -163,5 +163,3 @@ class CLI:
             self.task_manager.complete_task(title)
         except Exception as e:
             print(f"Hata: {e}")
-
-   
