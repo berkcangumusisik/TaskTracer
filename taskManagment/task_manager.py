@@ -154,5 +154,8 @@ class TaskManager:
         else:
             print("Görev bulunamadı.")
 
-    
-
+    def filter_tasks_by_status(self, is_completed):
+        user = self.user_manager.user_control()
+        user_tasks = [t for t in self.tasks if t.assigned_to == user.username and t.is_completed == is_completed]
+        for task in user_tasks:
+            print(f"Başlık: {task.title}, Açıklama: {task.description}, Tamamlandı mı: {task.is_completed}, Bitiş Tarihi: {task.due_date}, Öncelik: {task.priority}, Etiketler: {', '.join(task.tags)}")
