@@ -90,3 +90,18 @@ class TaskManager:
             print("Görev başarıyla paylaşıldı.")
         else:
             print("Görev bulunamadı.")
+
+    def add_comment(self, title, comment):
+            user = self.user_manager.get_logged_in_user()
+            if user is None:
+                print("Hiçbir kullanıcı giriş yapmadı.")
+                return
+
+            task = next((t for t in self.tasks if t.assigned_to == user.username and t.title == title), None)
+            if task:
+                task.comments.append(comment)
+                task.history.append(f"Yorum eklendi: {comment}")
+                self.save_tasks_to_file()
+                print("Yorum başarıyla eklendi.")
+            else:
+                print("Görev bulunamadı.")
