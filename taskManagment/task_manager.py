@@ -138,6 +138,10 @@ class TaskManager:
             print("Alt görev başarıyla eklendi.")
         else:
             print("Görev bulunamadı.")
+    def display_task_count(self):
+        user = self.user_manager.user_control()
+        user_tasks = [t for t in self.tasks if t.assigned_to == user.username]
+        print(f"Toplam görev sayısı: {len(user_tasks)}")
 
     def archive_task(self, title):
         user = self.user_manager.user_control()
@@ -151,3 +155,4 @@ class TaskManager:
             print("Görev bulunamadı.")
 
     
+
